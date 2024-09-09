@@ -47,6 +47,7 @@
             this.txtCate = new System.Windows.Forms.TextBox();
             this.accionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.busquedaClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Grilla)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -65,7 +66,7 @@
             // 
             this.Grilla.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.Grilla.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.Grilla.Location = new System.Drawing.Point(36, 83);
+            this.Grilla.Location = new System.Drawing.Point(36, 90);
             this.Grilla.Name = "Grilla";
             this.Grilla.Size = new System.Drawing.Size(537, 301);
             this.Grilla.TabIndex = 1;
@@ -210,11 +211,21 @@
             this.busquedaClienteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.busquedaClienteToolStripMenuItem.Text = "Busqueda Cliente";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(598, 322);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 13);
+            this.label6.TabIndex = 17;
+            this.label6.Text = "Categoria";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.txtCate);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -264,6 +275,7 @@
         private System.Windows.Forms.TextBox txtCate;
         private System.Windows.Forms.ToolStripMenuItem accionesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem busquedaClienteToolStripMenuItem;
+        private System.Windows.Forms.Label label6;
     }
 }
 

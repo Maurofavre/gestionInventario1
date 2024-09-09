@@ -19,6 +19,8 @@ namespace gestionInventario1
         public Form1()
         {
             InitializeComponent();
+            ClsProductos1 objProductos = new ClsProductos1();
+            objProductos.Listar(Grilla);
         }
 
         private void btnPrueba_Click(object sender, EventArgs e)
@@ -50,6 +52,8 @@ namespace gestionInventario1
         {
             ClsProductos1 objProductos = new ClsProductos1();
             objProductos.Agregar(guardarDatos());
+            objProductos.Listar(Grilla);
+            limpiar();
 
         }
 
@@ -57,6 +61,16 @@ namespace gestionInventario1
         {
             ClsProductos1 objProductos = new ClsProductos1();
             objProductos.Eliminar(guardarDatos());
+            objProductos.Listar(Grilla);
+            limpiar();
+        }
+        public void limpiar()
+        {
+            txtCate.Clear(); 
+            txtDescripcion.Clear(); 
+            txtNombre.Clear();
+            txtPrecio.Clear();  
+            txtStock.Clear();
         }
     }
 }
