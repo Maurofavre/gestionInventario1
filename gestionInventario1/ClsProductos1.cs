@@ -23,6 +23,18 @@ namespace gestionInventario1
         private string cadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source = baseDatos\\inventario.accdb";
         private string Tabla = "Productos";
 
+        public void conexiones()
+        {
+            //recibe la cadena de conexion
+            conexion.ConnectionString = cadenaConexion;
+            conexion.Open();
+
+            // Asocia el comando SQL a la conexión y define el tipo de comando (SQL)
+            comando.Connection = conexion;
+            comando.CommandType = CommandType.Text;
+
+        }
+
 
         public void Listar(DataGridView Grilla)
         {
@@ -66,17 +78,12 @@ namespace gestionInventario1
         {
             try
             {
-                //recibe la cadena de conexion
-                conexion.ConnectionString = cadenaConexion;
-                conexion.Open();
+               conexiones();
 
-                // Asocia el comando SQL a la conexión y define el tipo de comando (SQL)
-                comando.Connection = conexion;
-                comando.CommandType = CommandType.Text;
+                //Se edita lp que es la query 
+                string query = "INSERT INTO Productos (Nombre, Descripcion, Precio, Stock, Categoria) VALUES (@Nombre, @Descripcion, @Precio, @Stock, @Categoria)";
 
-
-                comando.CommandText = "INSERT INTO Productos (Nombre, Descripcion, Precio, Stock, Categoria) VALUES (@Nombre, @Descripcion, @Precio, @Stock, @Categoria)";
-
+                comando.CommandText = query; 
                 // Asignar valores a los parámetros
                 comando.Parameters.AddWithValue("@Nombre", stock.Nombre);
                 comando.Parameters.AddWithValue("@Descripcion", stock.Descripcion);
@@ -96,7 +103,6 @@ namespace gestionInventario1
 
                 // Ejecuta el comando (INSERT INTO) para insertar los datos en la base de datos
                 comando.ExecuteNonQuery();
-
                 // Cerrar la conexión
                 conexion.Close();
 
@@ -113,26 +119,15 @@ namespace gestionInventario1
         {
             try
             {
-                //recibe la cadena de conexion
-                conexion.ConnectionString = cadenaConexion;
-                conexion.Open();
-
-                // Asocia el comando SQL a la conexión y define el tipo de comando (SQL)
-                comando.Connection = conexion;
-                comando.CommandType = CommandType.Text;
-
-
+                conexiones();
                 comando.CommandText = "DELETE FROM Productos where Codigo = ?";
 
                 comando.Parameters.AddWithValue("?", stock.Id);
-           
-
                 // Ejecuta el comando (INSERT INTO) para insertar los datos en la base de datos
                 comando.ExecuteNonQuery();
 
                 // Cerrar la conexión
                 conexion.Close();
-
                 MessageBox.Show("Eliminado Correctamente.");
 
             }
