@@ -17,10 +17,10 @@ namespace gestionInventario1
         private OleDbConnection conexion = new OleDbConnection();
         //para enviar las ordenes a la bd 
         private OleDbCommand comando = new OleDbCommand();
-        //nos sirve para adaptar los datos que estan mal en la bd  
+        //nos sirve para adaptar los datos que estan mal en la bd   
         private OleDbDataAdapter adaptador = new OleDbDataAdapter();
 
-        private string cadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source = baseDatos\\inventario.accdb";
+        private string cadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\mauro\\source\\repos\\gestionInventario1\\gestionInventario1\\baseDatos\\inventario.accdb";
         private string Tabla = "Productos";
 
         public void conexiones()
@@ -73,6 +73,29 @@ namespace gestionInventario1
                 MessageBox.Show("ERROR EN BD " + e.ToString());
             }
         }
+        public void ProbarConexion()
+{
+            try
+            {
+                // Configurar la cadena de conexión
+                conexion.ConnectionString = cadenaConexion;
+                conexion.Open();
+                MessageBox.Show("Conexión a la base de datos exitosa.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al conectar con la base de datos: " + ex.Message);
+            }
+            finally
+            {
+                // Cerrar la conexión si está abierta
+                if (conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+            }
+        }
+    
 
         public void Agregar(Stock stock)
         {
@@ -83,28 +106,17 @@ namespace gestionInventario1
                 //Se edita lp que es la query 
                 string query = "INSERT INTO Productos (Nombre, Descripcion, Precio, Stock, Categoria) VALUES (@Nombre, @Descripcion, @Precio, @Stock, @Categoria)";
 
-                comando.CommandText = query; 
+                comando.CommandText = query;
                 // Asignar valores a los parámetros
+                comando.Parameters.Clear();
                 comando.Parameters.AddWithValue("@Nombre", stock.Nombre);
                 comando.Parameters.AddWithValue("@Descripcion", stock.Descripcion);
                 comando.Parameters.AddWithValue("@Precio", stock.Precio);
                 comando.Parameters.AddWithValue("@Stock", stock.Cantidad);
                 comando.Parameters.AddWithValue("@Categoria", stock.Categoria);
 
-
-                comando.CommandText = "INSERT INTO Productos (Nombre, Descripcion, Precio, Stock, Categoria) VALUES (?, ?, ?, ?, ?)";
-
-                // Usa parámetros en el orden correcto
-                comando.Parameters.AddWithValue("?", stock.Nombre);
-                comando.Parameters.AddWithValue("?", stock.Descripcion);
-                comando.Parameters.AddWithValue("?", stock.Precio);
-                comando.Parameters.AddWithValue("?", stock.Cantidad);
-                comando.Parameters.AddWithValue("?", stock.Categoria);
-
                 // Ejecuta el comando (INSERT INTO) para insertar los datos en la base de datos
                 comando.ExecuteNonQuery();
-                // Cerrar la conexión
-                conexion.Close();
 
                 MessageBox.Show("Producto agregado correctamente.");
 
@@ -113,8 +125,11 @@ namespace gestionInventario1
             {
                 MessageBox.Show("ERROR EN BD " + e.ToString());
             }   
+            finally
+            {
+                conexion.Close() ;
+            }
         }
-
         public void Eliminar(Stock stock)
         {
             try
@@ -126,16 +141,51 @@ namespace gestionInventario1
                 // Ejecuta el comando (INSERT INTO) para insertar los datos en la base de datos
                 comando.ExecuteNonQuery();
 
-                // Cerrar la conexión
-                conexion.Close();
-                MessageBox.Show("Eliminado Correctamente.");
+               MessageBox.Show("Eliminado Correctamente.");
 
             }
             catch (Exception e)
             {
                 MessageBox.Show("ERROR EN BD " + e.ToString());
             }
+            finally
+            {
+                conexion.Close();
+            }
         }
+
+            public void Modificar(Stock stock)
+            {
+                try
+                {
+                conexiones();
+
+                //Query para modificar 
+                comando.CommandText = "UPDATE Productos SET Nombre = ?, Descripcion = ?, Precio = ?, Stock = ?, Categoria = ? WHERE Codigo = ?";
+                
+                //Se actualizan los valores de los campos
+                comando.Parameters.AddWithValue("?", stock.Nombre);
+                comando.Parameters.AddWithValue("?", stock.Descripcion);
+                comando.Parameters.AddWithValue("?", stock.Precio);
+                comando.Parameters.AddWithValue("?", stock.Cantidad);
+                comando.Parameters.AddWithValue("?", stock.Categoria);
+                comando.Parameters.AddWithValue("?", stock.Id); // Código del producto que se va a modificar
+
+                // Ejecuta el comando (Update INTO) para insertar los datos en la base de datos
+                comando.ExecuteNonQuery();
+
+                    MessageBox.Show("Modificado correctamente");
+
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("ERROR EN BD " + e.ToString());
+                }
+                finally
+                {
+                    conexion.Close();
+                }
+            }
 
 
     }

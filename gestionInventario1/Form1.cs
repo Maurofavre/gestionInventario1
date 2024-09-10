@@ -21,12 +21,15 @@ namespace gestionInventario1
             InitializeComponent();
             ClsProductos1 objProductos = new ClsProductos1();
             objProductos.Listar(Grilla);
+            
         }
 
         private void btnPrueba_Click(object sender, EventArgs e)
         {
+            
             ClsProductos1 objProductos = new ClsProductos1();
             objProductos.Listar(Grilla);
+            objProductos.ProbarConexion(); 
         }
 
         private Stock guardarDatos()
@@ -47,12 +50,28 @@ namespace gestionInventario1
 
             return stockNuevo;
         }
+        private Stock eliminarDatos()
+        {
+            Stock stockNuevo = new Stock();
+
+            int codigoStock = 1;
+            //si tiene codigo lo usa, sino le pone 1 
+            int.TryParse(txtCod.Text, out codigoStock);
+
+
+            stockNuevo.Id = codigoStock;
+            
+
+            return stockNuevo;
+        }
+
 
         private void btnCargar_Click(object sender, EventArgs e)
         {
             ClsProductos1 objProductos = new ClsProductos1();
             objProductos.Agregar(guardarDatos());
             objProductos.Listar(Grilla);
+            
             limpiar();
 
         }
@@ -60,7 +79,7 @@ namespace gestionInventario1
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             ClsProductos1 objProductos = new ClsProductos1();
-            objProductos.Eliminar(guardarDatos());
+            objProductos.Eliminar(eliminarDatos());
             objProductos.Listar(Grilla);
             limpiar();
         }
@@ -71,6 +90,16 @@ namespace gestionInventario1
             txtNombre.Clear();
             txtPrecio.Clear();  
             txtStock.Clear();
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            ClsProductos1 objProductos = new ClsProductos1();
+            objProductos.Modificar(guardarDatos());
+            objProductos.Listar(Grilla);
+
+            limpiar();
+
         }
     }
 }

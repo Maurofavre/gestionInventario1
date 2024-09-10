@@ -34,6 +34,8 @@
             this.btnCargar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.accionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.busquedaClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtCod = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.txtDescripcion = new System.Windows.Forms.TextBox();
@@ -45,8 +47,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtCate = new System.Windows.Forms.TextBox();
-            this.accionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.busquedaClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Grilla)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -79,6 +79,7 @@
             this.btnModificar.TabIndex = 2;
             this.btnModificar.Text = "ModificarProducto";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnCargar
             // 
@@ -109,6 +110,20 @@
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // accionesToolStripMenuItem
+            // 
+            this.accionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.busquedaClienteToolStripMenuItem});
+            this.accionesToolStripMenuItem.Name = "accionesToolStripMenuItem";
+            this.accionesToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.accionesToolStripMenuItem.Text = "Acciones";
+            // 
+            // busquedaClienteToolStripMenuItem
+            // 
+            this.busquedaClienteToolStripMenuItem.Name = "busquedaClienteToolStripMenuItem";
+            this.busquedaClienteToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.busquedaClienteToolStripMenuItem.Text = "Busqueda Cliente";
             // 
             // txtCod
             // 
@@ -196,20 +211,6 @@
             this.txtCate.Name = "txtCate";
             this.txtCate.Size = new System.Drawing.Size(100, 20);
             this.txtCate.TabIndex = 16;
-            // 
-            // accionesToolStripMenuItem
-            // 
-            this.accionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.busquedaClienteToolStripMenuItem});
-            this.accionesToolStripMenuItem.Name = "accionesToolStripMenuItem";
-            this.accionesToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
-            this.accionesToolStripMenuItem.Text = "Acciones";
-            // 
-            // busquedaClienteToolStripMenuItem
-            // 
-            this.busquedaClienteToolStripMenuItem.Name = "busquedaClienteToolStripMenuItem";
-            this.busquedaClienteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.busquedaClienteToolStripMenuItem.Text = "Busqueda Cliente";
             // 
             // label6
             // 
