@@ -23,7 +23,7 @@ namespace gestionInventario1
         private string cadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\mauro\\source\\repos\\gestionInventario1\\gestionInventario1\\baseDatos\\inventario.accdb";
         private string Tabla = "Productos";
 
-        public void conexiones()
+        public void conexiones()    
         {
             //recibe la cadena de conexion
             conexion.ConnectionString = cadenaConexion;
@@ -96,7 +96,6 @@ namespace gestionInventario1
             }
         }
     
-
         public void Agregar(Stock stock)
         {
             try
@@ -134,15 +133,15 @@ namespace gestionInventario1
         {
             try
             {
-                conexiones();
-                comando.CommandText = "DELETE FROM Productos where Codigo = ?";
+                conexiones(); // Método para abrir la conexión con la base de datos
+                comando.CommandText = "DELETE FROM Productos WHERE Codigo = ?";
 
-                comando.Parameters.AddWithValue("?", stock.Id);
-                // Ejecuta el comando (INSERT INTO) para insertar los datos en la base de datos
-                comando.ExecuteNonQuery();
+                comando.Parameters.Clear();
+                comando.Parameters.AddWithValue("?", stock.Id); // Pasar el parámetro del código del producto
 
-               MessageBox.Show("Eliminado Correctamente.");
+                comando.ExecuteNonQuery(); // Ejecutar el comando
 
+                MessageBox.Show("Producto eliminado correctamente.");
             }
             catch (Exception e)
             {
@@ -150,11 +149,10 @@ namespace gestionInventario1
             }
             finally
             {
-                conexion.Close();
+                conexion.Close(); // Asegúrate de cerrar la conexión después de ejecutar el comando
             }
         }
-
-            public void Modificar(Stock stock)
+        public void Modificar(Stock stock)
             {
                 try
                 {
@@ -187,6 +185,57 @@ namespace gestionInventario1
                 }
             }
 
+        public DataTable BuscarPorNombre(string nombre)
+        {
+            conexiones(); // Método que abre la conexión
+
+            string query = "SELECT * FROM Productos WHERE Nombre = @Nombre";
+            comando.CommandText = query;
+            comando.Parameters.Clear();
+            comando.Parameters.AddWithValue("@Nombre", nombre);
+
+            OleDbDataAdapter adaptador = new OleDbDataAdapter(comando);
+            DataTable resultados = new DataTable();
+            adaptador.Fill(resultados); // Llena el DataTable con los resultados de la consulta
+
+            conexion.Close(); // Cierra la conexión
+            return resultados; // Retorna los resultados
+        }
+
+        public DataTable BuscarPorCodigo(int codigo)
+        {
+            conexiones(); // Método que abre la conexión
+
+            string query = "SELECT * FROM Productos WHERE Codigo = @Codigo";
+            comando.CommandText = query;
+            comando.Parameters.Clear();
+            comando.Parameters.AddWithValue("@Nombre", codigo);
+
+            OleDbDataAdapter adaptador = new OleDbDataAdapter(comando);
+            DataTable resultados = new DataTable();
+            adaptador.Fill(resultados); // Llena el DataTable con los resultados de la consulta
+
+            conexion.Close(); // Cierra la conexión
+            return resultados; // Retorna los resultados
+        }
+
+
+        public DataTable BuscarPorCate(string categoria)
+        {
+            conexiones(); // Método que abre la conexión
+
+            string query = "SELECT * FROM Productos WHERE Categoria = @Cate";
+            comando.CommandText = query;
+            comando.Parameters.Clear();
+            comando.Parameters.AddWithValue("@Cate", categoria);
+
+            OleDbDataAdapter adaptador = new OleDbDataAdapter(comando);
+            DataTable resultados = new DataTable();
+            adaptador.Fill(resultados); // Llena el DataTable con los resultados de la consulta
+
+            conexion.Close(); // Cierra la conexión
+            return resultados; // Retorna los resultados
+        }
 
     }
 }

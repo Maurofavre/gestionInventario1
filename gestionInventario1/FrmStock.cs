@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,23 +16,24 @@ namespace gestionInventario1
     {
 
         Stock stockNuevo;
+        
 
         public Form1()
         {
             InitializeComponent();
-            ClsProductos1 objProductos = new ClsProductos1();
-            objProductos.Listar(Grilla);
-            
-        }
+            LlenarGrilla();
+            txtCod.Enabled = false;
 
+            btnModificar.Enabled = false;
+
+            limpiar();
+
+        }
         private void btnPrueba_Click(object sender, EventArgs e)
         {
             
-            ClsProductos1 objProductos = new ClsProductos1();
-            objProductos.Listar(Grilla);
-            objProductos.ProbarConexion(); 
+          this.Close();
         }
-
         private Stock guardarDatos()
         {
             Stock stockNuevo = new Stock();
@@ -50,22 +52,6 @@ namespace gestionInventario1
 
             return stockNuevo;
         }
-        private Stock eliminarDatos()
-        {
-            Stock stockNuevo = new Stock();
-
-            int codigoStock = 1;
-            //si tiene codigo lo usa, sino le pone 1 
-            int.TryParse(txtCod.Text, out codigoStock);
-
-
-            stockNuevo.Id = codigoStock;
-            
-
-            return stockNuevo;
-        }
-
-
         private void btnCargar_Click(object sender, EventArgs e)
         {
             ClsProductos1 objProductos = new ClsProductos1();
@@ -73,33 +59,62 @@ namespace gestionInventario1
             objProductos.Listar(Grilla);
             
             limpiar();
-
         }
-
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            ClsProductos1 objProductos = new ClsProductos1();
-            objProductos.Eliminar(eliminarDatos());
-            objProductos.Listar(Grilla);
-            limpiar();
-        }
-        public void limpiar()
-        {
-            txtCate.Clear(); 
-            txtDescripcion.Clear(); 
-            txtNombre.Clear();
-            txtPrecio.Clear();  
-            txtStock.Clear();
-        }
+          frmEliminar eliminar = new frmEliminar();
+            eliminar.ShowDialog();
+            LlenarGrilla();
 
+        }
         private void btnModificar_Click(object sender, EventArgs e)
         {
             ClsProductos1 objProductos = new ClsProductos1();
             objProductos.Modificar(guardarDatos());
-            objProductos.Listar(Grilla);
+            
 
             limpiar();
+            LlenarGrilla();
 
         }
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            frmBuscar frmBuscar = new frmBuscar();
+            frmBuscar.ShowDialog();
+        }
+        private void seleccionar(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            
+            int indice1 = e.RowIndex;
+            Grilla.ClearSelection();
+
+            if (indice1 >= 0)
+            {
+                txtCod.Text = Grilla.Rows[indice1].Cells[0].Value.ToString();
+                txtNombre.Text = Grilla.Rows[indice1].Cells[1].Value.ToString();
+                txtDescripcion.Text = Grilla.Rows[indice1].Cells[2].Value.ToString();
+                txtPrecio.Text = Grilla.Rows[indice1].Cells[3].Value.ToString();
+                txtStock.Text = Grilla.Rows[indice1].Cells[4].Value.ToString();
+                txtCate.Text = Grilla.Rows[indice1].Cells[5].Value.ToString();
+            }
+
+            btnModificar.Enabled = true;
+            
+        }
+        public void LlenarGrilla()
+        {
+            ClsProductos1 objProductos = new ClsProductos1();
+            objProductos.Listar(Grilla);
+        }
+        public void limpiar()
+        {
+            txtCate.Clear();
+            txtDescripcion.Clear();
+            txtNombre.Clear();
+            txtPrecio.Clear();
+            txtStock.Clear();
+        }
+        
     }
 }
+
