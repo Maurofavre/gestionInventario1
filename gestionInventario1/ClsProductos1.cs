@@ -237,5 +237,19 @@ namespace gestionInventario1
             return resultados; // Retorna los resultados
         }
 
+        //Listar los datos para mi chart
+        //conectandome a la base de datos y sacando los datos de mi tabla
+        public DataTable ListarData()
+        {
+            conexiones();
+            DataTable dt = new DataTable();
+            string query = "SELECT Nombre, Categoria FROM Productos";
+            comando.CommandText = query;
+            OleDbDataAdapter adaptador = new OleDbDataAdapter(comando);
+            adaptador.Fill(dt);
+            conexion.Close();
+            return dt;
+        }
+
     }
 }

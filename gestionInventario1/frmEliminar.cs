@@ -32,6 +32,8 @@ namespace gestionInventario1
 
 
             return stockNuevo;
+
+            
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -45,6 +47,7 @@ namespace gestionInventario1
             produc.Eliminar(eliminarDatos());
 
             txtCodigo.Clear();
+            Close();
             
         }
     }

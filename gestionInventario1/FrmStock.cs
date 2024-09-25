@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace gestionInventario1
 {
@@ -55,16 +56,46 @@ namespace gestionInventario1
         private void btnCargar_Click(object sender, EventArgs e)
         {
             ClsProductos1 objProductos = new ClsProductos1();
-            objProductos.Agregar(guardarDatos());
+            Stock nuevoStock = guardarDatos(); // Guarda el nuevo stock
+            objProductos.Agregar(nuevoStock); // Agrega el nuevo producto a la base de datos
+
+            // Actualiza la grilla
             objProductos.Listar(Grilla);
+
+            // Llenar el gráfico, pasando el nuevo stock
+            LlenarChart(nuevoStock); // Pasa el objeto nuevoStock como argumento
+
+            limpiar(); // 
+        }
+
+
+        private void LlenarChart(Stock stockNuevo)
+        {
+            Series series = chart1.Series.FindByName("Stock");
+
+            // Si la serie no existe, la creamos
+            if (series == null)
+            {
+                series = new Series("Stock");
+                series.ChartType = SeriesChartType.Pie;
+                chart1.Series.Add(series);
+            }
             
-            limpiar();
+            // Añade el nuevo punto con el nombre del producto y la cantidad en stock
+            series.Points.AddXY(stockNuevo.Nombre, stockNuevo.Cantidad); ;
+        }
+
+        private void LimpiarChart()
+        {
+            chart1.Series.Clear(); // Elimina todas las series del gráfico
         }
         private void btnEliminar_Click(object sender, EventArgs e)
         {
           frmEliminar eliminar = new frmEliminar();
             eliminar.ShowDialog();
             LlenarGrilla();
+
+            limpiar();
 
         }
         private void btnModificar_Click(object sender, EventArgs e)
@@ -114,7 +145,16 @@ namespace gestionInventario1
             txtPrecio.Clear();
             txtStock.Clear();
         }
-        
+
+        private void chart1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnReiniciar_Click(object sender, EventArgs e)
+        {
+            LimpiarChart();
+        }
     }
 }
 
