@@ -20,8 +20,10 @@ namespace gestionInventario1
         //nos sirve para adaptar los datos que estan mal en la bd   
         private OleDbDataAdapter adaptador = new OleDbDataAdapter();
 
-        private string cadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\mauro\\source\\repos\\gestionInventario1\\gestionInventario1\\baseDatos\\inventario.accdb";
-        private string Tabla = "Productos";
+        //private string cadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source = C:\\Users\\mauro\\source\\repos\\gestionInventario1\\gestionInventario1\\baseDatos\\inventario.accdb";
+        private string cadenaConexion = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=baseDatos\inventario.accdb";
+        
+       private string Tabla = "Productos";
 
         public void conexiones()    
         {
