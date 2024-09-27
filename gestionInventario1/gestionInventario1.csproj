@@ -33,7 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
@@ -47,35 +49,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClsProductos1.cs" />
-    <Compile Include="frmEliminar.cs">
+    <Compile Include="clases\ClsProductos1.cs" />
+    <Compile Include="vistas\frmEliminar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmEliminar.Designer.cs">
+    <Compile Include="vistas\frmEliminar.Designer.cs">
       <DependentUpon>frmEliminar.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmStock.cs">
+    <Compile Include="vistas\FrmStock.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmStock.Designer.cs">
+    <Compile Include="vistas\FrmStock.Designer.cs">
       <DependentUpon>FrmStock.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmBuscar.cs">
+    <Compile Include="vistas\frmBuscar.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmBuscar.Designer.cs">
+    <Compile Include="vistas\frmBuscar.Designer.cs">
       <DependentUpon>frmBuscar.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Stock.cs" />
-    <EmbeddedResource Include="frmEliminar.resx">
+    <Compile Include="clases\Stock.cs" />
+    <EmbeddedResource Include="vistas\frmEliminar.resx">
       <DependentUpon>frmEliminar.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmStock.resx">
+    <EmbeddedResource Include="vistas\FrmStock.resx">
       <DependentUpon>FrmStock.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmBuscar.resx">
+    <EmbeddedResource Include="vistas\frmBuscar.resx">
       <DependentUpon>frmBuscar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
